@@ -82,15 +82,18 @@ const AddRecipe = ({history}) => {
 
     return (
         <div>
-            <Navigation title={'New Recipe'} BackComponent={<IconLink to={'/'}>Cancel</IconLink>}/>
+            <Navigation title={'New Recipe'} BackComponent={<IconLink title="Cancel" to={'/'}>Cancel</IconLink>}/>
 
             <Form>
-                <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)}
+                       title="Recipe Title"
+                />
 
                 <TextArea form='recipeForm' placeholder={'Ingredients'} value={ingredients}
+                          title="Recipe Ingredients"
                           onChange={(e) => setIngredients(e.target.value)}/>
 
-                <SubmitButton disabled={isInvalid()} onClick={onSubmit}>Add Recipe</SubmitButton>
+                <SubmitButton title="Add Recipe" disabled={isInvalid()} onClick={onSubmit}>Add Recipe</SubmitButton>
             </Form>
 
         </div>

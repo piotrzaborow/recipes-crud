@@ -96,8 +96,8 @@ const EditRecipe = ({match, history}) => {
             <Navigation title={'Recipe Details'}
                         BackComponent={<IconLink to={'/'}><Icon icon={iosArrowBack} size={32}/>Back</IconLink>}
             >
-                {editable && <NavButton onClick={() => submitUpdate()}>Done</NavButton>}
-                {!editable && <NavButton onClick={() => setEditable(true)}>Edit</NavButton>}
+                {editable && <NavButton title="Done Editing" onClick={() => submitUpdate()}>Done</NavButton>}
+                {!editable && <NavButton title="Edit Recipe" onClick={() => setEditable(true)}>Edit</NavButton>}
             </Navigation>
 
 
@@ -110,16 +110,18 @@ const EditRecipe = ({match, history}) => {
 
             {editable &&
             <Form>
-                <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} disabled={!editable}/>
-                <TextArea value={ingredients} onChange={(e) => setIngredients(e.target.value)} disabled={!editable}/>
+                <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} disabled={!editable}
+                       title="Recipe Title"/>
+                <TextArea value={ingredients} onChange={(e) => setIngredients(e.target.value)} disabled={!editable}
+                          title="Recipe Ingredients"/>
             </Form>
             }
 
-            <DeleteButton onClick={() => {
+            <DeleteButton title="Delete Recipe" onClick={() => {
                 deleteRecipe(recipeId)
                 history.push('/list')
             }}>
-                Delete recipe
+                Delete Recipe
             </DeleteButton>
         </div>
     )

@@ -39,11 +39,12 @@ const RecipesList = ({history}) => {
     return (
         <div>
             <Navigation title={'Recipes List'}>
-                <IconLink to={'/add'}><Icon icon={iosPlusEmpty} size={42}/></IconLink>
+                <IconLink to={'/add'} title="Add Recipe"><Icon icon={iosPlusEmpty} size={42}/></IconLink>
             </Navigation>
             <List>
                 {recipes.map(recipe =>
-                    <ListElement key={recipe.id} onClick={() => history.push(`/edit/${recipe.id}`)}>
+                    <ListElement title={recipe.title} key={recipe.id}
+                                 onClick={() => history.push(`/edit/${recipe.id}`)}>
                         {recipe.title}
                         <Icon icon={iosArrowForward} size={27}/>
                     </ListElement>
