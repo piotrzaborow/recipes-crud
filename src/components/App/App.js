@@ -4,19 +4,7 @@ import {AddRecipePage, EditRecipePage, RecipesListPage} from '../../pages'
 import RecipesContext from '../../context'
 import withRecipes from '../withRecipes/withRecipes'
 
-
 const App = ({context}) => {
-
-    const {recipes, setRecipes} = context
-
-    useEffect(() => {
-        if (window.localStorage.getItem('recipes')) {
-            setRecipes(JSON.parse(window.localStorage.getItem('recipes')))
-        }
-    }, [])
-
-    useEffect(() => localStorage.setItem('recipes', JSON.stringify(recipes)), [recipes])
-
     return (
         <RecipesContext.Provider value={context}>
             <Router>

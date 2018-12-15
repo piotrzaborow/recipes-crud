@@ -1,9 +1,6 @@
 import {createContext, useContext} from 'react'
 
- const RecipesContext = createContext({
-     recipes: [],
-     addRecipe: () => {}
- })
+const RecipesContext = createContext(null)
 
  export const useRecipesContext = () => useContext(RecipesContext)
 

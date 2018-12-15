@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useRecipesContext} from "../../context"
 import {withRouter} from "react-router-dom"
 
@@ -7,8 +7,8 @@ const EditRecipe = ({match, history}) => {
     const {getRecipe, updateRecipe, deleteRecipe} = useRecipesContext()
 
     const recipe = getRecipe(recipeId)
-
-    const [title, setTitle] = useState(recipe.title)
+    const [title, setTitle] = useState(recipe.title || '')
+    const [ingredients, setIngredients] = useState(recipe.ingredients || '')
 
     const isValid = () => {
         return title === recipe.title
@@ -17,7 +17,8 @@ const EditRecipe = ({match, history}) => {
     const onSubmit = e => {
         updateRecipe(recipeId, {
             ...recipe,
-            title: title
+            title: title,
+            ingredients: ingredients
         })
         history.push('/list')
         e.preventDefault()
@@ -29,6 +30,12 @@ const EditRecipe = ({match, history}) => {
                 Title:
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
             </label>
+
+            <label>
+                Ingredients:
+                <input type="textarea" value={ingredients} onChange={(e) => setIngredients(e.target.value)}/>
+            </label>
+
             <input type="submit" value="Submit" disabled={isValid}/>
 
             <button onClick={() => {

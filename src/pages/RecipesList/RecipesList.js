@@ -13,11 +13,11 @@ const RecipesList = ({history}) => {
 
     return (
         <Fragment>
-        <ul>
-            {recipes.map(recipe =>
-                <li key={recipe.id} onClick={() => history.push(`/edit/${recipe.id}`)}>{recipe.title}</li>
-            )}
-        </ul>
+            <List>
+                {recipes.map(recipe =>
+                    <li key={recipe.id} onClick={() => history.push(`/edit/${recipe.id}`)}>{recipe.title}</li>
+                )}
+            </List>
             <Link to={'/add'}>Add Recipe</Link>
         </Fragment>
     )

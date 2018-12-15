@@ -1,8 +1,10 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 
 const withRecipes = Component => props => {
 
-    const [recipes, setRecipes] = useState([])
+    const [recipes, setRecipes] = useState(JSON.parse(window.localStorage.getItem('recipes')) || [])
+
+    useEffect(() => localStorage.setItem('recipes', JSON.stringify(recipes)), [recipes])
 
     const addRecipe = (recipe) => {
         setRecipes([...recipes, recipe])
