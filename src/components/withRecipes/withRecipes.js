@@ -1,4 +1,16 @@
 import React, {Fragment, useEffect, useState} from 'react'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  width: 50%;
+  height: calc(100vh - 100px);
+  padding-top: 80px;
+  margin: 0 auto;
+  
+  @media(max-width: 1024px){
+    width: 100%;
+  }
+`
 
 const withRecipes = Component => props => {
 
@@ -39,9 +51,9 @@ const withRecipes = Component => props => {
     }
 
     return (
-        <Fragment>
+        <Wrapper>
             <Component {...props} context={recipesContext}/>
-        </Fragment>
+        </Wrapper>
     )
 }
 
