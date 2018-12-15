@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import {AddRecipePage, RecipesListPage} from '../../pages'
-import RecipesContext from "../../context"
+import {AddRecipePage, EditRecipePage, RecipesListPage} from '../../pages'
+import RecipesContext from '../../context'
+import withRecipes from '../withRecipes/withRecipes'
 
-const App = () => {
 
-    const [recipes, setRecipes] = useState([])
+const App = ({context}) => {
+
+    const {recipes, setRecipes} = context
 
     useEffect(() => {
         if (window.localStorage.getItem('recipes')) {
@@ -15,30 +17,18 @@ const App = () => {
 
     useEffect(() => localStorage.setItem('recipes', JSON.stringify(recipes)), [recipes])
 
-
-    const addRecipe = (recipe) => {
-        setRecipes([...recipes, recipe])
-    }
-
-    const updateRecipe = () => {
-
-    }
-
-    const deleteRecipe = () => {
-
-    }
-
     return (
-        <RecipesContext.Provider value={{recipes: recipes, addRecipe: addRecipe}}>
+        <RecipesContext.Provider value={context}>
             <Router>
                 <Switch>
                     <Route exact path='/' component={RecipesListPage}/>
                     <Route path='/list' component={RecipesListPage}/>
                     <Route path='/add' component={AddRecipePage}/>
+                    <Route path='/edit/:recipeId' component={EditRecipePage}/>
                 </Switch>
             </Router>
         </RecipesContext.Provider>
     )
 }
 
-export default App
+export default withRecipes(App)
