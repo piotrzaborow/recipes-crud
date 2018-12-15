@@ -28,7 +28,9 @@ const Input = styled.input`
   border-bottom: 1px solid rgba(0,0,0, 0.15);
   background-color: #fff;
   outline:none;
-  font-size: 15px;
+  font-size: 16px;
+  border-radius: 0px;
+  margin:0;
 `
 
 const TextArea = styled.textarea`
@@ -37,11 +39,13 @@ const TextArea = styled.textarea`
   border-bottom: 1px solid rgba(0,0,0, 0.15);
   background-color: #fff;
   outline:none;
-  font-size: 15px;
+  font-size: 16px;
   resize: vertical;
+  border-radius: 0px;
+  margin:0;
 `
 
-const SubmitButton = styled.input`
+const SubmitButton = styled.button`
   padding: 20px;
   border: none;
   background-color: #fff;
@@ -49,10 +53,12 @@ const SubmitButton = styled.input`
   margin-top: 20px;
   color: rgb(0, 122, 255);
   font-size: 15px;
+  border-radius: 0px;
   
   :disabled{
     background-color: rgba(255,255,255, .3);
     color: rgb(0, 122, 255, .3);
+     -webkit-text-fill-color: rgba(0, 122, 255, .3);
     :hover{
       cursor: initial;
     }
@@ -68,10 +74,9 @@ const AddRecipe = ({history}) => {
     const [ingredients, setIngredients] = useState('')
     const {addRecipe} = useRecipesContext()
 
-    const submit = e => {
+    const onSubmit = () => {
         addRecipe({id: uuid(), title: title, ingredients: ingredients})
         history.push('/list')
-        e.preventDefault()
     }
 
     const isInvalid = () => {
@@ -82,13 +87,13 @@ const AddRecipe = ({history}) => {
         <div>
             <Navigation title={'New Recipe'} BackComponent={<IconLink to={'/'}>Cancel</IconLink>}/>
 
-            <Form onSubmit={(e) => submit(e)} id={'recipeForm'}>
+            <Form>
                 <Input type="text" placeholder={'Title'} value={title} onChange={(e) => setTitle(e.target.value)}/>
 
                 <TextArea form='recipeForm' placeholder={'Ingredients'} value={ingredients}
                           onChange={(e) => setIngredients(e.target.value)}/>
 
-                <SubmitButton type='submit' value='Add Recipe' disabled={isInvalid()}/>
+                <SubmitButton disabled={isInvalid()} onClick={onSubmit}>Add Recipe</SubmitButton>
             </Form>
 
         </div>

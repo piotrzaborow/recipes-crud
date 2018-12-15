@@ -12,6 +12,67 @@ const IconLink = styled(Link)`
   color:  rgb(0, 122, 255);
 `
 
+const Form = styled.form`
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+`
+
+const Input = styled.input`
+  padding: 20px 15px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.15);
+  background-color: #fff;
+  outline:none;
+  font-size: 16px;
+  margin: 0;
+`
+
+const TextArea = styled.textarea`
+  padding: 15px;
+  border:none;
+  border-bottom: 1px solid rgba(0,0,0, 0.15);
+  background-color: #fff;
+  outline:none;
+  font-size: 16px;
+  resize: vertical;
+  margin: 0;
+`
+
+const NavButton = styled.div`
+  outline: none;
+  text-decoration: none;
+  color:  rgb(0, 122, 255);
+  padding: 10px;
+  
+  :hover{
+  cursor: pointer;
+  }
+`
+
+const DeleteButton = styled.button`
+  padding: 20px;
+  border: none;
+  background-color: #fff;
+  outline:none;
+  margin-top: 20px;
+  color: rgb(255, 59, 48);
+  font-size: 15px;
+  border-radius: 0px;
+  width: 100%;
+  
+  :hover{
+    cursor: pointer;
+  }
+`
+
+const Field = styled.div`
+  font-weight: ${props => props.bold ? 'bold' : 'initial'};
+  font-size: ${props => props.bold ? '22px' : '16px'};
+  padding-left: 20px;
+  padding-top: 20px;
+`
+
 const EditRecipe = ({match, history}) => {
     const recipeId = match.params.recipeId
     const {getRecipe, updateRecipe, deleteRecipe} = useRecipesContext()
@@ -19,45 +80,47 @@ const EditRecipe = ({match, history}) => {
     const recipe = getRecipe(recipeId)
     const [title, setTitle] = useState(recipe.title || '')
     const [ingredients, setIngredients] = useState(recipe.ingredients || '')
+    const [editable, setEditable] = useState(false)
 
-    const isValid = () => {
-        return title === recipe.title
-    }
-
-    const onSubmit = e => {
+    const submitUpdate = () => {
         updateRecipe(recipeId, {
             ...recipe,
             title: title,
             ingredients: ingredients
         })
-        history.push('/list')
-        e.preventDefault()
+        setEditable(false)
     }
 
     return (
         <div>
-            <Navigation title={title} BackComponent={<IconLink to={'/'}><Icon icon={iosArrowBack} size={32}/>Recipes
-                List</IconLink>}/>
-            <form onSubmit={e => onSubmit(e)}>
-                <label>
-                    Title:
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                </label>
+            <Navigation title={'Recipe Details'}
+                        BackComponent={<IconLink to={'/'}><Icon icon={iosArrowBack} size={32}/>Back</IconLink>}
+            >
+                {editable && <NavButton onClick={() => submitUpdate()}>Done</NavButton>}
+                {!editable && <NavButton onClick={() => setEditable(true)}>Edit</NavButton>}
+            </Navigation>
 
-                <label>
-                    Ingredients:
-                    <input type="textarea" value={ingredients} onChange={(e) => setIngredients(e.target.value)}/>
-                </label>
 
-                <input type="submit" value="Submit" disabled={isValid}/>
+            {!editable &&
+            <div>
+                <Field bold>{title}</Field>
+                <Field>{ingredients}</Field>
+            </div>
+            }
 
-                <button onClick={() => {
-                    deleteRecipe(recipeId)
-                    history.push('/list')
-                }}>
-                    Delete recipe
-                </button>
-            </form>
+            {editable &&
+            <Form>
+                <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} disabled={!editable}/>
+                <TextArea value={ingredients} onChange={(e) => setIngredients(e.target.value)} disabled={!editable}/>
+            </Form>
+            }
+
+            <DeleteButton onClick={() => {
+                deleteRecipe(recipeId)
+                history.push('/list')
+            }}>
+                Delete recipe
+            </DeleteButton>
         </div>
     )
 }
