@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {useRecipesContext} from "../../context"
 import {Link, withRouter} from 'react-router-dom'

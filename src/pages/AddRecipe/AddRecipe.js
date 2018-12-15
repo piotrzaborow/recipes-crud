@@ -1,12 +1,9 @@
-import React, {useState, Fragment} from 'react'
+import React, {useState} from 'react'
 import {useRecipesContext} from "../../context"
 import uuid from 'uuid/v4'
 import {Link} from "react-router-dom"
 import {withRouter} from "react-router-dom"
 import Navigation from "../../components/Navigation/Navigation"
-import {Icon} from 'react-icons-kit'
-import {iosPlusEmpty} from 'react-icons-kit/ionicons/iosPlusEmpty'
-import {iosArrowBack} from 'react-icons-kit/ionicons/iosArrowBack'
 import styled from 'styled-components'
 
 const IconLink = styled(Link)`
