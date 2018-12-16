@@ -1,6 +1,6 @@
 {
   "name": "recipes",
-  "homepage": "",
+  "homepage": "https://piotrzaborow.gitlab.io/recipes-crud/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
