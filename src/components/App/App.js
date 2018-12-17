@@ -7,7 +7,7 @@ import withRecipes from '../withRecipes/withRecipes'
 const App = ({context}) => {
     return (
         <RecipesContext.Provider value={context}>
-            <Router basename='https://piotrzaborow.gitlab.io/recipes-crud/'>
+            <Router basename='/recipes-crud'>
                 <Switch>
                     <Route exact path='/' component={RecipesListPage}/>
                     <Route path='/list' component={RecipesListPage}/>
